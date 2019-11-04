@@ -7,6 +7,7 @@ import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
+import Popover from "@material-ui/core/Popover";
 
 ////// Component Functions //////
 
@@ -35,6 +36,10 @@ const ProductFlowContainer = props => {
   useEffect(() => setTradeInPrice(12.99),[tradeInPrice]);
 
 
+  ////// Popover //////
+  const [anchorElement, setAnchorElement] = useState<HTMLElement|null>(null);
+
+
   ////// Render //////
   if (tradeInPrice) {
     return (
@@ -44,7 +49,11 @@ const ProductFlowContainer = props => {
        quantity box
        view cart
       */}
-      <Typography>Trade in yours for ${tradeInPrice}</Typography>
+
+
+      <Typography>
+        Sell this item back to us for ${tradeInPrice}
+      </Typography>
 
 
       <InlineContainer>
@@ -53,10 +62,27 @@ const ProductFlowContainer = props => {
           onChange={e => setQuantity(e.target.value)}
         />
         <ButtonContainer>
-          <Button size="small">Add to Trade Ins</Button>
+          <Button
+            size="small"
+            onClick={e => setAnchorElement(e.currentTarget)}
+          >Add to Trade Ins</Button>
           <Button size="small">View</Button>
         </ButtonContainer>
       </InlineContainer>
+
+
+      <Popover
+        open={Boolean(anchorElement)}
+        onClose={() => setAnchorElement(null)}
+        anchorEl={anchorElement}
+        anchorOrigin={{ vertical : 'top', horizontal : 'center'}}
+        transformOrigin={{ vertical : 'top', horizontal : 'center'}}
+      >
+        <PopoverContentContainer>
+          <Typography>Added to Trade Ins List</Typography>
+          <Button variant='contained' color="primary">View List</Button>
+        </PopoverContentContainer>
+      </Popover>
 
     </FormContainer>
   )}
@@ -76,6 +102,7 @@ const FormContainer = styled.form`
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  text-align: center;
   max-width: 300px;
 
   > * {
@@ -93,7 +120,6 @@ const InlineContainer = styled.div`
 `;
 
 const ThinTextField = styled(TextField)`
-  display: inline;
   width: 30px;
   margin-right: 10px !important;
   text-align: center !important;
@@ -105,6 +131,20 @@ const ButtonContainer = styled.div`
     margin-right: 10px !important;
     border: 2px dashed orange !important;
   }
+`;
+
+const PopoverContentContainer = styled.div`
+  padding: 10px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  > * {
+    margin: 10px !important;
+  }
+`;
+
+const SemiBoldSpan = styled.span`
+  font-weight: 500;
 `;
 
 
