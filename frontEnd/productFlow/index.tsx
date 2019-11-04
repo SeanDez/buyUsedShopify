@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import styled from "styled-components";
+import {Route, Link, BrowserRouter} from 'react-router-dom';
 
 import Typography from "@material-ui/core/Typography";
 import Input from "@material-ui/core/Input";
@@ -8,6 +9,8 @@ import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import Popover from "@material-ui/core/Popover";
+
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 ////// Component Functions //////
 
@@ -43,49 +46,63 @@ const ProductFlowContainer = props => {
   ////// Render //////
   if (tradeInPrice) {
     return (
-    <FormContainer>
-      {/*
-       Add info
-       quantity box
-       view cart
-      */}
+      <BrowserRouter>
+        <FormContainer>
+          {/*
+           Add info
+           quantity box
+           view cart
+           */}
 
 
-      <Typography>
-        Sell this item back to us for ${tradeInPrice}
-      </Typography>
+          <Typography>
+            Sell this item back to us for <SemiBoldSpan>${tradeInPrice}</SemiBoldSpan>
+          </Typography>
 
 
-      <InlineContainer>
-        <ThinTextField
-          value={quantity}
-          onChange={e => setQuantity(e.target.value)}
-        />
-        <ButtonContainer>
-          <Button
-            size="small"
-            onClick={e => setAnchorElement(e.currentTarget)}
-          >Add to Trade Ins</Button>
-          <Button size="small">View</Button>
-        </ButtonContainer>
-      </InlineContainer>
+          <InlineContainer>
+            <ThinTextField
+              value={quantity}
+              onChange={e => setQuantity(e.target.value)}
+            />
+            <ButtonContainer>
+              <Button
+                size="small"
+                onClick={e => setAnchorElement(e.currentTarget)}
+              >Add to Trade Ins</Button>
+
+              <Link to="/registerTradeIns">
+                <Button variant='text'>View</Button>
+              </Link>
+            </ButtonContainer>
+          </InlineContainer>
 
 
-      <Popover
-        open={Boolean(anchorElement)}
-        onClose={() => setAnchorElement(null)}
-        anchorEl={anchorElement}
-        anchorOrigin={{ vertical : 'top', horizontal : 'center'}}
-        transformOrigin={{ vertical : 'top', horizontal : 'center'}}
-      >
-        <PopoverContentContainer>
-          <Typography>Added to Trade Ins List</Typography>
-          <Button variant='contained' color="primary">View List</Button>
-        </PopoverContentContainer>
-      </Popover>
+          <Popover
+            open={Boolean(anchorElement)}
+            onClose={() => setAnchorElement(null)}
+            anchorEl={anchorElement}
+            anchorOrigin={{vertical: 'top', horizontal: 'center'}}
+            transformOrigin={{vertical: 'top', horizontal: 'center'}}
+          >
+            <PopoverContentContainer>
+              <Typography>Added to Trade Ins List</Typography>
 
-    </FormContainer>
-  )}
+              <Link to="/registerTradeIns">
+                <Button variant='contained' color="primary">
+                  View List
+                </Button>
+              </Link>
+
+              <TopRightHighlightOffIcon
+                onClick={() => setAnchorElement(null)}
+              />
+            </PopoverContentContainer>
+          </Popover>
+
+        </FormContainer>
+      </BrowserRouter>
+    );}
 
   return (
     <div>
@@ -130,16 +147,18 @@ const ButtonContainer = styled.div`
   > * {
     margin-right: 10px !important;
     border: 2px dashed orange !important;
+    text-decoration: none;
   }
 `;
 
 const PopoverContentContainer = styled.div`
-  padding: 10px;
+  padding: 20px 10px 10px 10px;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   > * {
     margin: 10px !important;
+    text-decoration: none;
   }
 `;
 
@@ -147,6 +166,12 @@ const SemiBoldSpan = styled.span`
   font-weight: 500;
 `;
 
+const TopRightHighlightOffIcon = styled(HighlightOffIcon)`
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  cursor: pointer;
+`;
 
 ////// DOM Injection of this App/Widget //////
 
