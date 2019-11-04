@@ -56,7 +56,7 @@ const ProductFlowContainer = props => {
 
 
           <Typography>
-            Sell this item back to us for <SemiBoldSpan>${tradeInPrice}</SemiBoldSpan>
+            Sell yours back to us for <SemiBoldSpan>${tradeInPrice}</SemiBoldSpan>
           </Typography>
 
 
@@ -163,7 +163,7 @@ const PopoverContentContainer = styled.div`
 `;
 
 const SemiBoldSpan = styled.span`
-  font-weight: 500;
+  font-weight: 600 !important;
 `;
 
 const TopRightHighlightOffIcon = styled(HighlightOffIcon)`
