@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import styled from "styled-components";
-import {Route, Link, BrowserRouter} from 'react-router-dom';
+import {Link, BrowserRouter} from 'react-router-dom';
 
 import Typography from "@material-ui/core/Typography";
 import Input from "@material-ui/core/Input";
@@ -10,6 +10,7 @@ import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import Popover from "@material-ui/core/Popover";
 
+import FullView from "./components/FullView";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 ////// Component Functions //////
@@ -29,18 +30,16 @@ const ProductFlowContainer = props => {
   ////// Component State //////
 
   // display settings
-  const [displaySuccessModal, setDisplaySuccessModal] = useState(true);
-
-
+  const [fullViewIsOpen, setFullViewIsOpen] = useState<boolean>(false);
+  
+  
+  
   // product price and quantity
   const [tradeInPrice, setTradeInPrice] = useState<number|undefined>(undefined);
   const [quantity, setQuantity] = useState<number>(1);
 
   useEffect(() => setTradeInPrice(12.99),[tradeInPrice]);
-
-
-  ////// Popover //////
-  const [anchorElement, setAnchorElement] = useState<HTMLElement|null>(null);
+  
 
 
   ////// Render //////
@@ -48,18 +47,10 @@ const ProductFlowContainer = props => {
     return (
       <BrowserRouter>
         <FormContainer>
-          {/*
-           Add info
-           quantity box
-           view cart
-           */}
-
-
           <Typography>
             Sell yours back to us for <SemiBoldSpan>${tradeInPrice}</SemiBoldSpan>
           </Typography>
-
-
+        
           <InlineContainer>
             <ThinTextField
               value={quantity}
@@ -68,47 +59,26 @@ const ProductFlowContainer = props => {
             <ButtonContainer>
               <Button
                 size="small"
-                onClick={e => setAnchorElement(e.currentTarget)}
+                onClick={() => setFullViewIsOpen(true)}
               >Add to Trade Ins</Button>
-
-              <Link to="/registerTradeIns">
-                <Button variant='text'>View</Button>
-              </Link>
+              <Button variant='text'>View</Button>
             </ButtonContainer>
           </InlineContainer>
-
-
-          <Popover
-            open={Boolean(anchorElement)}
-            onClose={() => setAnchorElement(null)}
-            anchorEl={anchorElement}
-            anchorOrigin={{vertical: 'top', horizontal: 'center'}}
-            transformOrigin={{vertical: 'top', horizontal: 'center'}}
-          >
-            <PopoverContentContainer>
-              <Typography>Added to Trade Ins List</Typography>
-
-              <Link to="/registerTradeIns">
-                <Button variant='contained' color="primary">
-                  View List
-                </Button>
-              </Link>
-
-              <TopRightHighlightOffIcon
-                onClick={() => setAnchorElement(null)}
-              />
-            </PopoverContentContainer>
-          </Popover>
-
+        
+          <FullView
+            fullViewIsOpen={fullViewIsOpen}
+            setFullViewIsOpen={setFullViewIsOpen}
+          />
+      
         </FormContainer>
       </BrowserRouter>
     );}
-
+  
   return (
     <div>
       <h3>Loading</h3>
     </div>
-  )
+  );
 };
 
 
@@ -152,13 +122,22 @@ const ButtonContainer = styled.div`
 `;
 
 const PopoverContentContainer = styled.div`
-  padding: 20px 10px 10px 10px;
+  padding: 15px;
+  background-color: transparent;
+`;
+
+
+const InnerPopoverContainer = styled.div`
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  background-color: RGBa(192, 183, 205, .3);
+  padding: 10px;
+  border-radius: 5px;
   > * {
-    margin: 10px !important;
+    margin: 15px;
     text-decoration: none;
+    border: 2px dashed yellowgreen;
   }
 `;
 
@@ -168,7 +147,7 @@ const SemiBoldSpan = styled.span`
 
 const TopRightHighlightOffIcon = styled(HighlightOffIcon)`
   position: absolute;
-  top: -10px;
+  top: -20px;
   right: -10px;
   cursor: pointer;
 `;
