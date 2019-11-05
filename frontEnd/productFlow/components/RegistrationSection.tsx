@@ -44,11 +44,11 @@ const renderReviewTable = (tradeInData: {
   });
   
   return (
-    <ReviewTable>
+    <Table>
       <TableBody>
         {TableRows}
       </TableBody>
-    </ReviewTable>
+    </Table>
   );
 };
 
@@ -108,7 +108,7 @@ export default props => {
   
  ////// Render //////
  return (
-  <React.Fragment>
+  <div>
     {/*
       title / description
       product table   1) Review products
@@ -119,7 +119,7 @@ export default props => {
         final information (on next page you'll get confirmation...
     */}
     
-    <Typography variant='h5'>Submit a Buy Back Order</Typography>
+    <Typography variant='h5' style={{marginTop : '60px'}}>Submit a Buy Back Order</Typography>
     <Typography variant='body1'>Review your trade in items below. When you're ready to submit a trade in order, you can fill out your payout details and receive shipping instructions on the next page.</Typography>
     
   {/* Review Table */}
@@ -130,9 +130,16 @@ export default props => {
     </ReviewArea>
   
     {/* PayOUT form */}
-    <StyledForm id="informationArea">
+    <StyledForm>
+      <Typography
+        variant='h6'
+        style={{ textAlign : 'center' }}
+      >Payout & Contact Details</Typography>
       <FormControl>
-        <FormLabel>Payout Method</FormLabel>
+        <Typography
+          variant='body1'
+          style={{ marginTop : '15px' }}
+        >Payout Method</Typography>
         <StyledRadioGroup row
           onChange={e => setPayoutMethod(e.target.value)}
           style={{ marginTop : '10px' }}
@@ -141,21 +148,18 @@ export default props => {
         </StyledRadioGroup>
       </FormControl>
       
-    {/* Dynamic account identifier */}
-    
       <Input
         placeholder={renderAccountIdLabel(payoutMethod)}
         value={accountIdentifier}
         onChange={e => setAccountIdentifier(e.target.value)}
-        style={{ width : '400px', marginTop : '13px' }}
+        style={{ width: "100%", maxWidth : '400px', marginTop : '13px' }}
       />
-      
-      
+  
       <Typography
         variant="body1"
         style={{ marginTop : '23px' }}
       >Contact Information</Typography>
-      <Typography>In case there's an issue with your trade in</Typography>
+      <Typography variant="caption">In case an issue arises, we'll contact you by phone or email.</Typography>
       
       <div id="contactFields">
         <Input
@@ -176,14 +180,14 @@ export default props => {
       </div>
       
       <Button
-        style={{ marginTop : '15px' }}
+        style={{ marginTop : '25px' }}
         variant="contained"
       >Submit Trade In Order</Button>
       
     </StyledForm>
   </MainAreaContainer>
 
-  </React.Fragment>
+  </div>
  )
 }
 
@@ -196,17 +200,17 @@ const defineJssStyles = makeStyles(theme => ({
   }
 }));
 
-const ReviewTable = styled(Table)`
-  min-width: 200px;
-  max-width: 300px;
-  
+
+const ReviewArea = styled.div`
+  flex-grow: 2;
+  max-width: 500px;
+  border: 1px solid rgba(200, 200, 200, .2);
+  padding: 10px;
+  margin: 0 auto;
+
   * {
     text-align: center;
   }
-`;
-
-const ReviewArea = styled.div`
-  max-width: 300px;
 `;
 
 const StyledTableCell = styled(TableCell)`
@@ -227,13 +231,13 @@ const SecondaryText = styled.p`
 
 
 const MainAreaContainer = styled.div`
-  display: grid;
-  grid-auto-flow: row;
+  display: flex;
+  flex-flow: row wrap;
   align-items: center;
-  justify-items: center;
+  justify-content: space-around;
   
   > * {
-    border: 2px dashed gold;
+    // border: 2px dashed gold;
     margin: 15px 20px;
   }
 `;
@@ -243,12 +247,16 @@ const StyledRadioGroup = styled(RadioGroup)`
   
   > * {
     margin-left: 5px !important;
-    border: 2px dashed violet;
+    // border: 2px dashed violet;
   }
 `;
 
 const StyledForm = styled.form`
+  padding: 10px;
+  flex-grow: 1;
   max-width: 600px;
+  border: 1px solid rgba(200, 200, 200, .2);
+  border-radius: 5px;
 `;
 
 
