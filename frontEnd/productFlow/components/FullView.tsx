@@ -52,10 +52,11 @@ export default props => {
   ////// Component State //////
   const [view, setView] = useState('registration');
   
-  // todo tighten any type
   
   /** Binds a JSX element to a variable
    * Props and DOM reference are made available and passed in/attached
+   *
+   * todo if I use this, it causes the screen to stay unclickable
    */
   const SlideUp: any = React.forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -67,13 +68,8 @@ export default props => {
       fullScreen
       open={fullViewIsOpen}
       onClose={() => setFullViewIsOpen(false)}
-      TransitionComponent={SlideUp}
+      // TransitionComponent={SlideUp}
     >
-      
-      {/* Nav bar
-        contains: section name, close button
-        prop passed changes nav bar name
-       */}
        <AppBar className={appBarContainer}>
          <Typography
            variant='h6'

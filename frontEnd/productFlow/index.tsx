@@ -15,13 +15,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 ////// Component Functions //////
 
-/** Fires a modal blindly. No control logic
- *
- * todo: write the presentation logic now. Figure out the control logic later (will go in a back end function that then updates a variable set monitor via useEffect
- */
-const renderModal = () => {
 
-};
 
 
 ////// Component //////
@@ -61,7 +55,10 @@ const ProductFlowContainer = props => {
                 size="small"
                 onClick={() => setFullViewIsOpen(true)}
               >Add to Trade Ins</Button>
-              <Button variant='text'>View</Button>
+              <Button
+                variant='text'
+                onClick={() => setFullViewIsOpen(true)}
+              >View</Button>
             </ButtonContainer>
           </InlineContainer>
         
