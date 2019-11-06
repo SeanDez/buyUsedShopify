@@ -11,6 +11,10 @@ import CloseIcon from "@material-ui/icons/Close";
 
 import RegistrationSection from "./RegistrationSection";
 import ConfirmationSection from "./ConfirmationSection";
+import TableRow from "@material-ui/core/TableRow";
+import DeleteOutline from "@material-ui/core/SvgIcon/SvgIcon";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
 
 
 ////// Dummy Data //////
@@ -66,7 +70,7 @@ export default props => {
   return (
     <Dialog
       fullScreen
-      open={fullViewIsOpen}
+      open={true}
       onClose={() => setFullViewIsOpen(false)}
       // TransitionComponent={SlideUp}
     >

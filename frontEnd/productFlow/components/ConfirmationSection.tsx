@@ -8,11 +8,14 @@ import styled from "styled-components";
 
 ////// Component //////
 export default props => {
+  const {renderReviewTable} = props;
+  
  ////// Component State //////
  
  ////// Render //////
  return (
   <React.Fragment>
+    {/* id. repeat of details. shipping instructions */}
     <h6>Confirmation Section</h6>
   </React.Fragment>
  )

@@ -2,56 +2,16 @@ import React, {useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import styled from "styled-components";
 import {Typography} from "@material-ui/core";
-import {JSXElement} from "@babel/types";
 
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableBody from "@material-ui/core/TableBody";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
 import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
-
+import ProductReviewTable from "./shared/ProductReviewTable";
 
 ////// Component Functions //////
-const renderReviewTable = (tradeInData: {
-    productId: string
-    , productName: string
-    , quantity: number
-    , price: number
-  }[], jss) => {
-  
-  // create the table
-  // foreach on the <tr> and below
-  const TableRows = tradeInData.map(dataRow => {
-    return (
-      <TableRow key={dataRow.productId}>
-        <StyledTableCell className={jss.narrowTableCell}>
-          <p>{dataRow.productName} ({dataRow.quantity})</p>
-          <SecondaryText>Id: {dataRow.productId}</SecondaryText>
-        </StyledTableCell>
-        <StyledTableCell style={{ textAlign : 'center'}}>{dataRow.price}</StyledTableCell>
-      </TableRow>
-    );
-  });
-  
-  return (
-    <Table>
-      <TableBody>
-        {TableRows}
-      </TableBody>
-    </Table>
-  );
-};
-
 
 const renderPayoutRadios = () => {
   const radioOptions = [
@@ -96,6 +56,7 @@ const renderAccountIdLabel = (payoutMethodState: string) => {
 
 ////// Component //////
 export default props => {
+  const {renderReviewTable} = props;
   const jss = defineJssStyles();
   
  ////// Component State //////
@@ -109,16 +70,6 @@ export default props => {
  ////// Render //////
  return (
   <div>
-    {/*
-      title / description
-      product table   1) Review products
-      checkout
-        payOUT method 2) choose payout method
-        contact email
-        
-        final information (on next page you'll get confirmation...
-    */}
-    
     <Typography variant='h5' style={{marginTop : '60px'}}>Submit a Buy Back Order</Typography>
     <Typography variant='body1'>Review your trade in items below. When you're ready to submit a trade in order, you can fill out your payout details and receive shipping instructions on the next page.</Typography>
     
@@ -126,7 +77,10 @@ export default props => {
   <MainAreaContainer>
     <ReviewArea>
       <Typography variant='h6'>Review</Typography>
-      {renderReviewTable(props.products, jss)}
+      <ProductReviewTable
+        tradeInData={props.products}
+        showDeleteIcon={true}
+      />
     </ReviewArea>
   
     {/* PayOUT form */}
@@ -194,10 +148,7 @@ export default props => {
 
 ////// Component Styles //////
 const defineJssStyles = makeStyles(theme => ({
-  narrowTableCell : {
-    width : "100px !important"
-    // , border : "2px dashed lightblue"
-  }
+
 }));
 
 
@@ -206,39 +157,24 @@ const ReviewArea = styled.div`
   max-width: 500px;
   border: 1px solid rgba(200, 200, 200, .2);
   padding: 10px;
-  margin: 0 auto;
 
   * {
     text-align: center;
   }
 `;
 
-const StyledTableCell = styled(TableCell)`
-  width: 50px;
-  border: 1px solid rgba(200, 200, 200, .1);
-  border-radius: 4px;
-  text-align: center;
-  padding: 0 !important;
-  margin: 0 !important;
-`;
-
-
-const SecondaryText = styled.p`
-  font-style: italic;
-  font-size: .9rem;
-  margin-top: -7px;
-`;
-
 
 const MainAreaContainer = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
+  display: grid;
+  grid-gap: .5rem;
+  // repeat a target with value(s) (autofit, minmax it each time)
+  grid-template-columns: minmax(250px, 1fr) minmax(400px, 1fr);
+  align-items: start;
   justify-content: space-around;
   
   > * {
     // border: 2px dashed gold;
-    margin: 15px 20px;
+    margin: 15px 5px;
   }
 `;
 
