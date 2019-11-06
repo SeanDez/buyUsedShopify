@@ -9,7 +9,7 @@ import AppBar from "@material-ui/core/AppBar";
 
 import CloseIcon from "@material-ui/icons/Close";
 
-import RegistrationSection from "./RegistrationSection";
+import RegistrationSection from "./registrationSection/RegistrationSection";
 import ConfirmationSection from "./ConfirmationSection";
 import TableRow from "@material-ui/core/TableRow";
 import DeleteOutline from "@material-ui/core/SvgIcon/SvgIcon";
