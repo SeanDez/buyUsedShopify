@@ -48,10 +48,6 @@ const webpackConfiguration = {
         }
       ]
   }
-  // , externals : { // tells webpack these are included globally and not to bundle them
-  //     'react' : 'React'
-  //     , 'react-dom' : 'ReactDOM'
-  // }
 };
 
 module.exports = webpackConfiguration;

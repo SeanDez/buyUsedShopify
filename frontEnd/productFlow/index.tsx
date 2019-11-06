@@ -3,12 +3,11 @@ import ReactDOM from 'react-dom';
 import styled from "styled-components";
 import {Link, BrowserRouter} from 'react-router-dom';
 
+import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
-import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
-import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
-import Popover from "@material-ui/core/Popover";
+
 
 import FullView from "./components/FullView";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
@@ -40,6 +39,7 @@ const ProductFlowContainer = props => {
   if (tradeInPrice) {
     return (
       <BrowserRouter>
+        <CssBaseline />
         <FormContainer>
           <Typography>
             Sell yours back to us for <SemiBoldSpan>${tradeInPrice}</SemiBoldSpan>

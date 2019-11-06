@@ -20,7 +20,7 @@ export default props => {
  ////// Render //////
  return (
    <Table>
-     <TableBody>
+     <StyledTableBody>
        {tradeInData.map(dataRow => {
          return (
            <TableRow key={dataRow.productId}>
@@ -33,11 +33,11 @@ export default props => {
                </ProductNameDiv>
                <SecondaryText>Id: {dataRow.productId}</SecondaryText>
              </StyledTableCell>
-             <StyledTableCell style={{ textAlign : 'center'}}>{dataRow.price}</StyledTableCell>
+             <StyledTableCell>{dataRow.price}</StyledTableCell>
            </TableRow>
          )}
        )}
-     </TableBody>
+     </StyledTableBody>
    </Table>
  )
 }
@@ -50,12 +50,15 @@ const defineJss = makeStyles(theme => ({
    }
 }));
 
+const StyledTableBody = styled(TableBody)`
+  * {
+    text-align: center;
+  }
+`;
 
 const StyledTableCell = styled(TableCell)`
-  width: 50px;
-  border: 1px solid rgba(200, 200, 200, .1);
+  border: 1px solid rgba(200, 200, 200, .6);
   border-radius: 4px;
-  text-align: center;
   padding: 0 !important;
   margin: 0 !important;
 `;

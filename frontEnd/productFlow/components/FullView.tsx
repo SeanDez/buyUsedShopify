@@ -6,15 +6,12 @@ import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
 
 import CloseIcon from "@material-ui/icons/Close";
 
 import RegistrationSection from "./registrationSection/RegistrationSection";
 import ConfirmationSection from "./ConfirmationSection";
-import TableRow from "@material-ui/core/TableRow";
-import DeleteOutline from "@material-ui/core/SvgIcon/SvgIcon";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
 
 
 ////// Dummy Data //////
@@ -51,20 +48,11 @@ const setNavTitle = (viewState: string) => {
 ////// Component //////
 export default props => {
   const {fullViewIsOpen, setFullViewIsOpen} = props;
-  const {appBarContainer} = defineJss();
+  const {toolBarContainer} = defineJss();
   
   ////// Component State //////
-  const [view, setView] = useState('registration');
+  const [view, setView] = useState('confirmation');
   
-  
-  /** Binds a JSX element to a variable
-   * Props and DOM reference are made available and passed in/attached
-   *
-   * todo if I use this, it causes the screen to stay unclickable
-   */
-  const SlideUp: any = React.forwardRef((props, ref) => {
-    return <Slide direction="up" ref={ref} {...props} />;
-  });
   
   ////// Render //////
   return (
@@ -73,41 +61,42 @@ export default props => {
       open={true}
       onClose={() => setFullViewIsOpen(false)}
       // TransitionComponent={SlideUp}
+      style={{overflow: 'auto'}}
     >
-       <AppBar className={appBarContainer}>
-         <Typography
-           variant='h6'
-         >{setNavTitle(view)}</Typography>
-         <CloseIcon
-           onClick={() => setFullViewIsOpen(false)}
-           style={{ cursor : 'pointer' }}
-         />
-       </AppBar>
+      <AppBar>
+        <Toolbar className={toolBarContainer}>
+          <Typography
+            variant='h6'
+          >{setNavTitle(view)}</Typography>
+          <CloseIcon
+            onClick={() => setFullViewIsOpen(false)}
+            style={{cursor: 'pointer'}}
+          />
+        </Toolbar>
+      </AppBar>
+      <NavBarOffset />
       
-      <Typography variant="h6">Placeholder</Typography>
-
+      
       {view === 'registration' &&
       <RegistrationSection
-        products={dummyData}
+       products={dummyData}
       />}
       
       {view === 'confirmation' &&
       <ConfirmationSection
-      
+       products={dummyData}
       />}
     </Dialog>
-  )
+  );
 }
 
 
 ////// Component Styles //////
 const defineJss = makeStyles(theme => ({
-  appBarContainer : {
-    padding : '10px 20px'
-    , display : 'flex'
+  toolBarContainer : {
+    display : 'flex'
     , flexFlow : 'row nowrap'
     , justifyContent : 'space-between'
-    , marginBottom : '30px'
     , '& > *' : {
       border : "2px dashed orange"
     }
@@ -115,4 +104,6 @@ const defineJss = makeStyles(theme => ({
 }));
 
 
-
+const NavBarOffset = styled.div`
+  margin-bottom: 80px;
+`;
