@@ -9,22 +9,26 @@ import TableCell from "@material-ui/core/TableCell";
 
 
 ////// Component Functions //////
+const renderTotalPrice = (prices: number[]) => {
+  const sum = prices.reduce((prev, current) => prev + current);
+  
+  return sum;
+};
 
 ////// Component //////
 export default props => {
   const {tradeInData, showDeleteIcon} = props;
-  const jss = defineJss();
   
  ////// Component State //////
  
  ////// Render //////
  return (
    <Table>
-     <StyledTableBody>
+     <tbody>
        {tradeInData.map(dataRow => {
          return (
-           <TableRow key={dataRow.productId}>
-             <StyledTableCell className={jss.narrowTableCell}>
+           <FlexTableRow key={dataRow.productId}>
+             <ProductInfoCell>
                <ProductNameDiv>
                  <p>{dataRow.productName} ({dataRow.quantity})</p>
                  {showDeleteIcon && <DeleteOutline
@@ -32,35 +36,55 @@ export default props => {
                  />}
                </ProductNameDiv>
                <SecondaryText>Id: {dataRow.productId}</SecondaryText>
-             </StyledTableCell>
-             <StyledTableCell>{dataRow.price}</StyledTableCell>
-           </TableRow>
+             </ProductInfoCell>
+             <ProductPriceCell>
+               {dataRow.price}
+             </ProductPriceCell>
+           </FlexTableRow>
          )}
        )}
-     </StyledTableBody>
+     {/* Total */}
+       <FlexTableRow>
+         <ProductInfoCell></ProductInfoCell>
+         <ProductPriceCell>
+           Total: {renderTotalPrice(tradeInData.map(productRecord => productRecord.price))}
+         </ProductPriceCell>
+       </FlexTableRow>
+     </tbody>
    </Table>
  )
 }
 
 
 ////// Component Styles //////
-const defineJss = makeStyles(theme => ({
-  narrowTableCell : {
-    width : "100px !important"
-   }
-}));
 
-const StyledTableBody = styled(TableBody)`
-  * {
-    text-align: center;
-  }
+const FlexTableRow = styled.tr`
+  border: 1px solid rgba(200, 200, 200, .6);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
 `;
 
-const StyledTableCell = styled(TableCell)`
-  border: 1px solid rgba(200, 200, 200, .6);
+const StyledTableCell = styled.td`
   border-radius: 4px;
   padding: 0 !important;
   margin: 0 !important;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ProductInfoCell = styled(StyledTableCell)`
+  flex-grow: 3;
+  flex-basis: 200px;
+`;
+
+const ProductPriceCell = styled(StyledTableCell)`
+  flex-grow: 1;
+  margin: 0 auto;
+  padding: 5px 0 !important;
 `;
 
 
@@ -68,11 +92,12 @@ const ProductNameDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0;
 `;
 
 
 const SecondaryText = styled.p`
   font-style: italic;
   font-size: .9rem;
-  margin-top: -7px;
+  margin-top: -12px;
 `;

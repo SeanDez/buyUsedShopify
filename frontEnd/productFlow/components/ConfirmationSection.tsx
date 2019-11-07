@@ -45,56 +45,58 @@ export default props => {
  });
  
  ////// Render //////
- return (
-  <OuterContainer>
-    {/* id. repeat of details. shipping instructions */}
-    <Typography
-      variant="h5"
-      className="newSection"
-      style={{gridColumn : '1 / 6', textAlign : "center"}}
-    >Your Trade In Order Number Is: <span style={{fontWeight : 600}}>
-      103838
-      </span>
-    </Typography>
-  
-    <div>
-      <Typography variant="h6" className="newSection">Ship Your Trade Ins Here:</Typography>
-      <ShipToContainer className="details">
-        <Typography>{shopAddress.businessName}</Typography>
-        <Typography>{shopAddress.address1}</Typography>
-        <Typography>{shopAddress.address2}</Typography>
-        <Typography>{shopAddress.city}, {shopAddress.state} {shopAddress.zipCode}</Typography>
-        {shopAddress.country && <Typography>{shopAddress.country}</Typography>}
-      </ShipToContainer>
-    </div>
-    
-    <OtherDetailsContainer className="details">
-      <Typography variant="h6" className="newSection">Payout Information</Typography>
-      <Typography>Pay to: {contactInfo.fullName}</Typography>
-      <Typography>{contactInfo.email}</Typography>
-      <Typography>{contactInfo.phone}</Typography>
-      <Typography>By: {payoutDetails.payoutMethod}: {payoutDetails.payoutAccount}</Typography>
-    </OtherDetailsContainer>
-  
-    <div style={{gridColumn : "1 / 6"}}>
-      <Typography variant="h6" className="newSection">Instructions</Typography>
-      <TextField
-        multiline
-        id="ShippingInstructions"
-        value={shippingInstructions}
-        style={{width: "100%"}}
-      />
-    </div>
-  
-    <div style={{gridColumn : "1 / 6"}}>
-      <Typography variant="h6" className="newSection">Expected Item(s)</Typography>
-      <ProductReviewTable
-        tradeInData={props.products}
-        showDeleteIcon={false}
-      />
-    </div>
-  </OuterContainer>
- )
+  return (
+    <OuterContainer>
+      {/* id. repeat of details. shipping instructions */}
+      
+      <section id="headlineArea">
+        <Typography
+          variant="h5"
+          style={{textAlign: "center"}}
+        >Your Trade In Order Number Is: <span style={{fontWeight: 600}}>103838</span>
+        </Typography>
+      </section>
+      
+      <TwoColumnSection>
+        <div id="ShipToContainer">
+          <Typography variant="h6">Ship Your Trade Ins Here:</Typography>
+          <ShippingAddressOuter>
+            <ShippingAddressInner>
+            <Typography>{shopAddress.businessName}</Typography>
+            <Typography>{shopAddress.address1}</Typography>
+            <Typography>{shopAddress.address2}</Typography>
+            <Typography>{shopAddress.city}, {shopAddress.state} {shopAddress.zipCode}</Typography>
+            {shopAddress.country && <Typography>{shopAddress.country}</Typography>}
+            </ShippingAddressInner>
+          </ShippingAddressOuter>
+        </div>
+        
+        <OtherDetailsContainer className="details">
+          <Typography variant="h6">Payout Information</Typography>
+          <Typography>Pay to: {contactInfo.fullName}</Typography>
+          <Typography>{contactInfo.email}</Typography>
+          <Typography>{contactInfo.phone}</Typography>
+          <Typography>By: {payoutDetails.payoutMethod}: {payoutDetails.payoutAccount}</Typography>
+        </OtherDetailsContainer>
+      </TwoColumnSection>
+      
+      <section id="Instructions">
+        <Typography variant="h6">Instructions</Typography>
+        <Typography
+          id="ShippingInstructions"
+          variant="body2"
+        >{shippingInstructions}</Typography>
+      </section>
+      
+      <section id="ExpectedItemsTable">
+        <Typography variant="h6">Expected Item(s)</Typography>
+        <ProductReviewTable
+          tradeInData={props.products}
+          showDeleteIcon={false}
+        />
+      </section>
+    </OuterContainer>
+  );
 }
 
 
@@ -104,22 +106,29 @@ const defineJss = makeStyles(theme => ({
 }));
 
 const OuterContainer = styled.div`
-  //border : 2px dashed orange;
-  // max-width : 800px;
-  // margin: 0 auto;
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  padding: 0 2vw;
   
-  > * {
-    border: 2px dashed lightsteelblue;
+  > section {
+    margin-top: 30px;
   }
 `;
 
-const ShipToContainer = styled.div`
+const TwoColumnSection = styled.section`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 1rem;
+`;
+
+const ShippingAddressInner = styled.div`
+  display: inline-block;
   border: 1px solid rgba(0, 0, 0, .3);
   border-radius: 5px;
-  padding: 10px;
+  padding: 10px 60px 10px 10px;
+`;
+
+const ShippingAddressOuter = styled.div`
+  width: 100%;
 `;
 
 const OtherDetailsContainer = styled.div`
