@@ -51,7 +51,7 @@ export default props => {
   const {toolBarContainer} = defineJss();
   
   ////// Component State //////
-  const [view, setView] = useState('confirmation');
+  const [view, setView] = useState('registration');
   
   
   ////// Render //////

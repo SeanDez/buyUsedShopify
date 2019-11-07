@@ -67,18 +67,20 @@ export default props => {
         variant='h6'
         style={{textAlign: 'center'}}
       >Payout & Contact Details</Typography>
-      <FormControl>
+      
+      <div id="radioButtons">
         <Typography
           variant='body1'
           style={{marginTop: '15px'}}
         >Payout Method</Typography>
-        <StyledRadioGroup row
-                          onChange={e => setPayoutMethod(e.target.value)}
-                          style={{marginTop: '10px'}}
+        <StyledRadioGroup
+          row
+          onChange={e => setPayoutMethod(e.target.value)}
+          style={{marginTop: '10px'}}
         >
           {renderPayoutRadios()}
         </StyledRadioGroup>
-      </FormControl>
+      </div>
       
       <Input
         placeholder={renderAccountIdLabel(payoutMethod)}
@@ -93,7 +95,7 @@ export default props => {
       >Contact Information</Typography>
       <Typography variant="caption">In case an issue arises, we'll contact you by phone or email.</Typography>
       
-      <div id="contactFields">
+      <ContactFields>
         <Input
           placeholder="Full Name"
           value={fullName}
@@ -109,7 +111,7 @@ export default props => {
           value={contactPhone}
           onChange={e => setContactPhone(e.target.value)}
         />
-      </div>
+      </ContactFields>
       
       <Button
         style={{marginTop: '25px'}}
@@ -126,18 +128,27 @@ export default props => {
 const jss = makeStyles(theme => ({}));
 
 const StyledForm = styled.form`
+  max-width: 100vw;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
   padding: 10px;
-  flex-grow: 1;
-  max-width: 600px;
-  border: 1px solid rgba(200, 200, 200, .2);
+  border: 1px solid rgba(0, 0, 0, .4);
   border-radius: 5px;
+  
+  > * {
+  }
 `;
 
 const StyledRadioGroup = styled(RadioGroup)`
-  max-width: 600px;
+  // max-width: 600px;
   
   > * {
     margin-left: 5px !important;
     // border: 2px dashed violet;
   }
+`;
+
+const ContactFields =styled.div`
+  margin: 10px auto 0 auto;
 `;

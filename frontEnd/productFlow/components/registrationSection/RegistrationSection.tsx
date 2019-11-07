@@ -19,14 +19,17 @@ export default props => {
  
  ////// Render //////
  return (
-  <div>
-    <Typography variant='h5' style={{marginTop : '60px'}}>Submit a Buy Back Order</Typography>
-    <Typography variant='body1'>Review your trade in items below. When you're ready to submit a trade in order, you can fill out your payout details and receive shipping instructions on the next page.</Typography>
+  <OuterContainer>
     
-  {/* Review Table */}
+    <HeadingBox>
+      <Typography variant='h5'>Submit a Buy Back Order</Typography>
+      <Typography variant='body2'>Review your trade in items below. When you're ready to submit a trade in order, you can fill out your payout details and receive shipping instructions on the next page.</Typography>
+    </HeadingBox>
+  
+    {/* Review Table */}
   <MainAreaContainer>
     <ReviewArea>
-      <Typography variant='h6'>Review</Typography>
+      <Typography variant='h6'>Trade In Items</Typography>
       <ProductReviewTable
         tradeInData={props.products}
         showDeleteIcon={true}
@@ -37,7 +40,7 @@ export default props => {
     
   </MainAreaContainer>
 
-  </div>
+  </OuterContainer>
  )
 }
 
@@ -47,14 +50,31 @@ const defineJssStyles = makeStyles(theme => ({
 
 }));
 
+const OuterContainer = styled.div`
+  padding: 0 2vw;
+  
+  > section {
+    margin-top: 30px;
+  }
+`;
 
-const MainAreaContainer = styled.div`
+const HeadingBox = styled.section`
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+`;
+
+const MainAreaContainer = styled.section`
   display: grid;
   grid-gap: .5rem;
   // repeat a target with value(s) (autofit, minmax it each time)
-  grid-template-columns: minmax(250px, 1fr) minmax(400px, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   align-items: start;
   justify-content: space-around;
+  justify-items: center;
   
   > * {
     // border: 2px dashed gold;

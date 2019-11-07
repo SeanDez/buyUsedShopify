@@ -23,7 +23,7 @@ export default props => {
  
  ////// Render //////
  return (
-   <Table>
+   <ReviewTable>
      <tbody>
        {tradeInData.map(dataRow => {
          return (
@@ -51,12 +51,16 @@ export default props => {
          </ProductPriceCell>
        </FlexTableRow>
      </tbody>
-   </Table>
+   </ReviewTable>
  )
 }
 
 
 ////// Component Styles //////
+
+const ReviewTable = styled.table`
+  max-width: 100vw;
+`;
 
 const FlexTableRow = styled.tr`
   border: 1px solid rgba(200, 200, 200, .6);
@@ -78,7 +82,6 @@ const StyledTableCell = styled.td`
 
 const ProductInfoCell = styled(StyledTableCell)`
   flex-grow: 3;
-  flex-basis: 200px;
 `;
 
 const ProductPriceCell = styled(StyledTableCell)`
