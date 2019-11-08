@@ -7,6 +7,11 @@ import { Provider } from "@shopify/app-bridge-react";
 import Cookies from "js-cookie";
 import "@shopify/polaris/styles.css";
 import translations from "@shopify/polaris/locales/en.json";
+import dotEnv from 'dotenv';
+import {process} from "ts-invariant";
+
+dotEnv.config();
+const {API_KEY} = process.env;
 
 const client = new ApolloClient({
   fetch : "fetch"
@@ -23,7 +28,7 @@ class MyApp extends App {
         <AppProvider i18n={translations}>
           <Provider
             config={{
-              apiKey: API_KEY,
+              apiKey: API_KEY!,
               shopOrigin: shopOrigin,
               forceRedirect: true
             }}

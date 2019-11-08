@@ -8,12 +8,9 @@ module.exports = withCSS({
   webpack: config => {
     const env = { API_KEY: apiKey };
     config.plugins.push(new webpack.DefinePlugin(env));
-    
-    // custom entry
-    
-    // custom output bundle
-    
-    
+  
+    // for dotenv to work correctly
+    config.node = {fs: "empty"};
     
     return config;
   }
