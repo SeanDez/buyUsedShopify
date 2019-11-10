@@ -3,12 +3,16 @@ import styled from "styled-components";
 
 import {Button as PolarisButton} from "@shopify/polaris";
 
-import AppBar from "@material-ui/core/AppBar";
-import ToolBar from "@material-ui/core/Toolbar";
-import Paper from "@material-ui/core/Paper";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Button from "@material-ui/core/Button";
+// import Typography from 'antd/es/typography';
+import Card from 'antd/es/card';
+// import Tabs from 'antd/es/tabs';
+import {Tabs} from 'antd';
+
+import 'antd/dist/antd.css';
+
+
+const {TabPane} = Tabs;
+
 
 ////// Component Functions //////
 
@@ -34,39 +38,46 @@ const builtTabs: {content: string, id: string}[] = buildTabDescriptorArray();
 const hardCodedTabs = [{id :"Settings", content: "Settings"}, {id : "Open / Issues", content: "Open / Issues"}, {id: "Closed", content : "Closed"}];
 
 
+// const {Text, Title} = Typography;
+
 ////// Component //////
 export default props => {
  const {} = props;
  
  ////// Component State //////
-  const [selectedTab, setSelectedTab] = useState<string>('rules');
+  const [activeTabKey, setActiveTabKey] = useState<string>('rules');
 
  ////// Render //////
  return (
   <React.Fragment>
-    <Paper>
-      <Tabs
-        value={selectedTab}
-        onChange={(event, newValue) => setSelectedTab(newValue)}
-        indicatorColor="primary"
-        textColor="primary"
-      >
-        <Tab label="Rules" value="rules" />
-        <Tab label="Open / Issue Tickets" value="openIssue" />
-        <Tab label="Closed Tickets" value="closed" />
-        <Tab label="Settings" value="settings" />
-      </Tabs>
-    </Paper>
   
-    <BottomMarginSpacer />
+    {/*<Tabs*/}
+    {/*  hideAdd*/}
+    {/*  onChange={this.onChange}*/}
+    {/*  activeKey={this.state.activeKey}*/}
+    {/*  type="editable-card"*/}
+    {/*  onEdit={this.onEdit}*/}
+    {/*>*/}
+    {/*  {this.state.panes.map(pane => (*/}
+    {/*    <TabPane tab={pane.title} key={pane.key}>*/}
+    {/*      {pane.content}*/}
+    {/*    </TabPane>*/}
+    {/*  ))}*/}
+    {/*</Tabs>*/}
     
-    <p>
-      <PolarisButton>Polaris Button</PolarisButton>
-    </p>
-  
-    <p>
-      <Button variant="contained" color="primary">Material UI Button</Button>
-    </p>
+    <Tabs
+      activeKey={activeTabKey}
+      onChange={newKey => {
+        console.log(newKey, `=====newKey=====`);
+        setActiveTabKey(newKey)
+      }}
+      // type="card"
+    >
+      <TabPane tab="Rules" key="1">Rules</TabPane>
+      <TabPane tab="Open Requests" key="2">Open Requests Content</TabPane>
+      <TabPane tab="Closed" key="3">Closed</TabPane>
+    </Tabs>
+    
   </React.Fragment>
  )
 }
@@ -74,6 +85,4 @@ export default props => {
 
 ////// Component Styles //////
 
-const BottomMarginSpacer = styled(ToolBar)`
-  margin-bottom: 50px;
-`;
+

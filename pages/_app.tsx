@@ -11,7 +11,7 @@ import dotEnv from 'dotenv';
 import {process} from "ts-invariant";
 
 dotEnv.config();
-const {API_KEY} = process.env;
+const {SHOPIFY_API_KEY} = process.env;
 
 const client = new ApolloClient({
   fetch : "fetch"
@@ -22,13 +22,15 @@ const client = new ApolloClient({
 class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
-    const shopOrigin = Cookies.get("shopOrigin");
+    
+    // todo remove this dev hack that populates shopOrigin always
+    const shopOrigin: string = Cookies.get("shopOrigin");
     return (
       <Container>
         <AppProvider i18n={translations}>
           <Provider
             config={{
-              apiKey: API_KEY!,
+              apiKey: SHOPIFY_API_KEY!,
               shopOrigin: shopOrigin,
               forceRedirect: true
             }}
