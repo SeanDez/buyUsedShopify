@@ -9,6 +9,7 @@ import "@shopify/polaris/styles.css";
 import translations from "@shopify/polaris/locales/en.json";
 import dotEnv from 'dotenv';
 import {process} from "ts-invariant";
+import "typeface-roboto";
 
 dotEnv.config();
 const {SHOPIFY_API_KEY} = process.env;
@@ -20,6 +21,8 @@ const client = new ApolloClient({
   }
 });
 class MyApp extends App {
+  
+  // This code causes the server to remove all default MUI styles
   // componentDidMount() {
   //   // Remove the server-side injected CSS.
   //   const jssStyles = document.querySelector('#jss-server-side');

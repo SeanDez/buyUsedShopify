@@ -9,6 +9,18 @@ module.exports = withCSS({
   webpack: config => {
     const env = { API_KEY: apiKey };
     config.plugins.push(new webpack.DefinePlugin(env));
+    config.module.rules.push({
+      test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'fonts/' // relative to main output path
+          }
+        }
+      ]
+    });
     
     config.node = {fs: "empty"};
   

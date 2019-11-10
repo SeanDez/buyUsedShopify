@@ -46,7 +46,7 @@ export default props => {
     
     <AppBar>
       <Toolbar>
-        <Typography variant="h2">Admin</Typography>
+        <Typography variant="h4">Admin</Typography>
       </Toolbar>
     </AppBar>
     
