@@ -1,18 +1,10 @@
 import React, {useState, useCallback} from 'react';
 import styled from "styled-components";
 
-import {Button as PolarisButton} from "@shopify/polaris";
-
-// import Typography from 'antd/es/typography';
-import Card from 'antd/es/card';
-// import Tabs from 'antd/es/tabs';
-import {Tabs} from 'antd';
-
-import 'antd/dist/antd.css';
-
-
-const {TabPane} = Tabs;
-
+import Button from "@material-ui/core/Button";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 
 ////// Component Functions //////
 
@@ -50,33 +42,21 @@ export default props => {
  ////// Render //////
  return (
   <React.Fragment>
-  
-    {/*<Tabs*/}
-    {/*  hideAdd*/}
-    {/*  onChange={this.onChange}*/}
-    {/*  activeKey={this.state.activeKey}*/}
-    {/*  type="editable-card"*/}
-    {/*  onEdit={this.onEdit}*/}
-    {/*>*/}
-    {/*  {this.state.panes.map(pane => (*/}
-    {/*    <TabPane tab={pane.title} key={pane.key}>*/}
-    {/*      {pane.content}*/}
-    {/*    </TabPane>*/}
-    {/*  ))}*/}
-    {/*</Tabs>*/}
+
     
-    <Tabs
-      activeKey={activeTabKey}
-      onChange={newKey => {
-        console.log(newKey, `=====newKey=====`);
-        setActiveTabKey(newKey)
-      }}
-      // type="card"
-    >
-      <TabPane tab="Rules" key="1">Rules</TabPane>
-      <TabPane tab="Open Requests" key="2">Open Requests Content</TabPane>
-      <TabPane tab="Closed" key="3">Closed</TabPane>
-    </Tabs>
+    <AppBar>
+      <Toolbar>
+        <Typography variant="h2">Admin</Typography>
+      </Toolbar>
+    </AppBar>
+    
+    <Toolbar />
+  
+    <Button
+      color="primary"
+      variant="outlined"
+      size="large"
+    >Test Button</Button>
     
   </React.Fragment>
  )

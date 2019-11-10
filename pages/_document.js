@@ -1,37 +1,58 @@
+import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 // Import styled components ServerStyleSheet
 import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheets as MuiServerStyleSheets } from '@material-ui/core/styles';
+
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
-    // Step 1: Create an instance of ServerStyleSheet
-    const sheet = new ServerStyleSheet();
+    const muiServerStyleSheet = new ServerStyleSheet();
     
-    // Step 2: Retrieve styles from components in the page
-    const page = renderPage((App) => (props) =>
-      sheet.collectStyles(<App {...props} />),
+    // Retrieve styles from components in the page
+    const pageStyles = renderPage(App => props =>
+      muiServerStyleSheet.collectStyles(<App {...props} />),
     );
     
-    // Step 3: Extract the styles as <style> tags
-    const styleTags = sheet.getStyleElement();
+    // Extract the styles as <style> tags
+    const styleTags = muiServerStyleSheet.getStyleElement();
     
-    // Step 4: Pass styleTags as a prop
-    return { ...page, styleTags };
+    // Pass styleTags as a prop
+    return { ...pageStyles, styleTags };
   }
   
   render() {
     return (
       <html>
-      <Head>
-        <title>My page</title>
-        {/* Step 5: Output the styles in the head  */}
-        {this.props.styleTags}
-      </Head>
-      <body>
-      <Main />
-      <NextScript />
-      </body>
+        <Head>
+          <title>My page</title>
+          {/* Step 5: Output the styles in the head  */ }
+          { this.props.styleTags }
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
       </html>
     );
   }
 }
+
+
+MyDocument.getInitialProps = async ctx => {
+  const sheets = new MuiServerStyleSheets();
+  const originalRenderPage = ctx.renderPage;
+  
+  ctx.renderPage = () =>
+    originalRenderPage({
+      enhanceApp: App => props => sheets.collect(<App {...props} />),
+    });
+  
+  const initialProps = await Document.getInitialProps(ctx);
+  
+  return {
+    ...initialProps,
+    // Styles fragment is rendered after the app and page rendering finish.
+    styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
+  };
+};

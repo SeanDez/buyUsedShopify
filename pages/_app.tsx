@@ -20,6 +20,14 @@ const client = new ApolloClient({
   }
 });
 class MyApp extends App {
+  // componentDidMount() {
+  //   // Remove the server-side injected CSS.
+  //   const jssStyles = document.querySelector('#jss-server-side');
+  //   if (jssStyles && "parentElement" in jssStyles) {
+  //     (jssStyles.parentElement as HTMLElement).removeChild(jssStyles);
+  //   }
+  // }
+  
   render() {
     const { Component, pageProps } = this.props;
     

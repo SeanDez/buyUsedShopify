@@ -10,7 +10,6 @@ const Index = () => {
   
   return (
     <div>
-      <CssBaseline />
       
       {/* MOBILE Nav Menu */}
       <NavBar />
