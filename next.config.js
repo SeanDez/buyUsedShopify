@@ -1,11 +1,12 @@
 const { parsed: localEnv } = require("dotenv").config();
 const withCSS = require("@zeit/next-css");
+const withSASS = require("@zeit/next-sass");
 const path = require('path');
 
 const webpack = require("webpack");
 const apiKey = JSON.stringify(process.env.SHOPIFY_API_KEY);
 
-module.exports = withCSS({
+module.exports = withCSS(withSASS({
   webpack: config => {
     const env = { API_KEY: apiKey };
     config.plugins.push(new webpack.DefinePlugin(env));
@@ -22,8 +23,15 @@ module.exports = withCSS({
       ]
     });
     
+    
     config.node = {fs: "empty"};
   
     return config;
   }
-});
+  , cssModules: true
+  , cssLoaderOptions: {
+    importLoaders: 1,
+    localIdentName: "[local]___[hash:base64:5]",
+  }
+  , sassLoaderOptions: {}
+}));

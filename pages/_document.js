@@ -6,27 +6,27 @@ import { ServerStyleSheets as MuiServerStyleSheets } from '@material-ui/core/sty
 
 
 export default class MyDocument extends Document {
-  static getInitialProps({ renderPage }) {
-    const muiServerStyleSheet = new ServerStyleSheet();
-    
-    // Retrieve styles from components in the page
-    const pageStyles = renderPage(App => props =>
-      muiServerStyleSheet.collectStyles(<App {...props} />),
-    );
-    
-    // Extract the styles as <style> tags
-    const styleTags = muiServerStyleSheet.getStyleElement();
-    
-    // Pass styleTags as a prop
-    return { ...pageStyles, styleTags };
-  }
+  // static getInitialProps({ renderPage }) {
+  //   const muiServerStyleSheet = new ServerStyleSheet();
+  //
+  //   // Retrieve styles from components in the page
+  //   const pageStyles = renderPage(App => props =>
+  //     muiServerStyleSheet.collectStyles(<App {...props} />),
+  //   );
+  //
+  //   // Extract the styles as <style> tags
+  //   const styleTags = muiServerStyleSheet.getStyleElement();
+  //
+  //   // Pass styleTags as a prop
+  //   return { ...pageStyles, styleTags };
+  // }
   
   render() {
     return (
       <html>
         <Head>
           {/* Step 5: Output the styles in the head  */ }
-          { this.props.styleTags }
+          {/*{ this.props.styleTags }*/}
         </Head>
         <body>
           <Main />
@@ -38,20 +38,20 @@ export default class MyDocument extends Document {
 }
 
 
-MyDocument.getInitialProps = async ctx => {
-  const sheets = new MuiServerStyleSheets();
-  const originalRenderPage = ctx.renderPage;
-  
-  ctx.renderPage = () =>
-    originalRenderPage({
-      enhanceApp: App => props => sheets.collect(<App {...props} />),
-    });
-  
-  const initialProps = await Document.getInitialProps(ctx);
-  
-  return {
-    ...initialProps,
-    // Styles fragment is rendered after the app and page rendering finish.
-    styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
-  };
-};
+// MyDocument.getInitialProps = async ctx => {
+//   const sheets = new MuiServerStyleSheets();
+//   const originalRenderPage = ctx.renderPage;
+//
+//   ctx.renderPage = () =>
+//     originalRenderPage({
+//       enhanceApp: App => props => sheets.collect(<App {...props} />),
+//     });
+//
+//   const initialProps = await Document.getInitialProps(ctx);
+//
+//   return {
+//     ...initialProps,
+//     // Styles fragment is rendered after the app and page rendering finish.
+//     styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
+//   };
+// };

@@ -1,10 +1,10 @@
 import React, {useState, useCallback} from 'react';
 import styled from "styled-components";
+import {makeStyles} from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+
 
 ////// Component Functions //////
 
@@ -32,37 +32,52 @@ const hardCodedTabs = [{id :"Settings", content: "Settings"}, {id : "Open / Issu
 
 // const {Text, Title} = Typography;
 
+
+
 ////// Component //////
 export default props => {
- const {} = props;
+ const {setActiveView} = props;
  
  ////// Component State //////
-  const [activeTabKey, setActiveTabKey] = useState<string>('rules');
 
  ////// Render //////
  return (
-  <React.Fragment>
+  <div id="navContainer">
+    <h5 id="navTitle">Buy Back Trade Ins</h5>
 
-    
-    <AppBar>
-      <Toolbar>
-        <Typography variant="h4">Admin</Typography>
-      </Toolbar>
-    </AppBar>
-    
-    <Toolbar />
-  
-    <Button
-      color="primary"
-      variant="outlined"
-      size="large"
-    >Test Button</Button>
-    
-  </React.Fragment>
+    <nav id="buttonContainer">
+      <button
+        onClick={() => setActiveView('rules')}
+      >Rules</button>
+      <button onClick={() => setActiveView('open')}>Open Orders</button>
+      <button onClick={() => setActiveView('closed')}>Closed</button>
+      <button onClick={() => setActiveView('settings')}>Settings</button>
+    </nav>
+  {/* language=SCSS */}
+    <style jsx>{`
+      #navContainer > * {
+        margin: 0;
+        padding: 1vh 1vw 10px 1vw;
+        background-color: #084e8a;
+      }
+      
+      #navTitle {
+        font-size: 14px;
+        font-style: italic;
+        text-align: center;
+      }
+      
+      #buttonContainer {
+        display : grid;
+        grid-gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+      }
+      
+    `}</style>
+  </div>
  )
 }
 
 
 ////// Component Styles //////
-
 

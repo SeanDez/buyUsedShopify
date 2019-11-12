@@ -10,6 +10,7 @@ import translations from "@shopify/polaris/locales/en.json";
 import dotEnv from 'dotenv';
 import {process} from "ts-invariant";
 import "typeface-roboto";
+import "../adminStyles.scss";
 
 dotEnv.config();
 const {SHOPIFY_API_KEY} = process.env;
