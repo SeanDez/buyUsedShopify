@@ -1,10 +1,7 @@
 import React, {useState} from "react";
 // import { Heading, Page, Card, Button, Tabs } from "@shopify/polaris";
 import {makeStyles} from "@material-ui/core/styles";
-
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
-import Toolbar from "@material-ui/core/Toolbar";
+import "typeface-roboto";
 
 import NavBar from "../components/NavBar";
 import RulesContainer from "../components/rules/RulesContainer"
@@ -16,15 +13,31 @@ const StyleJsx = () => (
     { /*language=SCSS*/ }
     <style jsx global>{`
       
-      * {
-        font-family: Helvetica, sans-serif;
-        
+      body {
         // 14px: min size at the smallest viewport width of 300px. 26px: max size at the largest viewport width of 1600px
         font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+        background-color: wheat;
+      }
+      
+      p, h1, h2, h3, h4, h5, h6 {
+        font-family: Roboto, Helvetica, sans-serif;
+        color: rgba(30, 30, 30, .9);
+      }
+      
+      button {
+        color : whitesmoke;
+        padding-top: 4px;
+        padding-bottom: 4px;
       }
       
       section {
-        margin: 1vh 1vw;
+        margin: 2vh 2vw;
+        padding: 2vh 2vw;
+        background-color: white;
+        
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        border-radius: 2px;
       }
       
       section > * {
@@ -64,17 +77,15 @@ const Index = () => {
         activeView={activeView}
         setActiveView={setActiveView}
       />
-      <Toolbar className={jss.navSpacing} />
+      
   
       {/* state based views */}
-
-      <Container>
-        {activeView === 'rules' && (
-          <RulesContainer
-          
-          />
-        )}
-      </Container>
+      
+      {activeView === 'rules' && (
+        <RulesContainer
+        
+        />
+      )}
       
     </div>
   );

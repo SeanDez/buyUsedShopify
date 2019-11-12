@@ -55,10 +55,23 @@ export default props => {
     </nav>
   {/* language=SCSS */}
     <style jsx>{`
+      #navContainer {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+      }
+      
       #navContainer > * {
         margin: 0;
         padding: 1vh 1vw 10px 1vw;
-        background-color: #084e8a;
+        background-color: #9ca6de;
+        border-radius: 1px;
+        
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+      }
+      
+      #navContainer :hover, #navContainer > * :hover {
+        box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
       }
       
       #navTitle {
