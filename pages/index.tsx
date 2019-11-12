@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 // import { Heading, Page, Card, Button, Tabs } from "@shopify/polaris";
 import {makeStyles} from "@material-ui/core/styles";
-import "typeface-roboto";
+// import "typeface-roboto";
 
 import NavBar from "../components/NavBar";
 import RulesContainer from "../components/rules/RulesContainer"
@@ -12,11 +12,15 @@ const StyleJsx = () => (
     
     { /*language=SCSS*/ }
     <style jsx global>{`
+      // html { height: 100%; }
       
       body {
+        // min-height: 100%;
+      
         // 14px: min size at the smallest viewport width of 300px. 26px: max size at the largest viewport width of 1600px
         font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
-        background-color: wheat;
+        background-color: transparent;
+        border: 2px dashed green;
       }
       
       p, h1, h2, h3, h4, h5, h6 {
@@ -48,9 +52,15 @@ const StyleJsx = () => (
         font-size: calc(26px + (38 - 14) * ((100vw - 300px) / (1600 - 300)));
       }
       
+      h4 {
+        font-size: calc(18px + (28 - 14) * ((100vw - 300px) / (1600 - 300)));
+      }
+      
       h5 {
         font-size: calc(20px + (32 - 14) * ((100vw - 300px) / (1600 - 300)));
       }
+      
+      table * { text-align: center; }
       
       button {
         border: none;
@@ -59,9 +69,30 @@ const StyleJsx = () => (
         background-color: #5c6ac4;
       }
       
+      input[type=text], input[type=number] {
+        padding: 1vh 1vw;
+        min-width: 200px;
+        max-width: 400px;
+      }
+      
+      .inputRow {
+        display : grid;
+        grid-gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(50px, 200px));
+        justify-items: center;
+        align-items: center;
+        border: 2px dashed red;
+      }
+      
+      .formEmulationGrid {
+        display : grid;
+        grid-gap : 1rem;
+        grid-template-columns : repeat(auto-fill, minmax(200px, 1fr))
+      }
+      
     `}</style>
   </React.Fragment>
-)
+);
 
 const Index = () => {
   const jss = defineStyles();
