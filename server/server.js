@@ -67,11 +67,13 @@ koa.use(session(koa));
 koa.keys = [SHOPIFY_API_SECRET];
 
 
-// serve anything in public
+// serve anything in public folder
+// path is bound to url /. So public/index.html is /index.html (or just /)
 koa.use(serve("public"));
 
 
-// authenticate shopify credentials. Then capture an access token redirect to root
+// authenticate shopify credentials. Then capture an access token and redirect to root
+// root is whatever is at the root of path ./public/
 koa.use(createShopifyAuth({
   apiKey : SHOPIFY_API_KEY
   , secret : SHOPIFY_API_SECRET
@@ -84,10 +86,12 @@ koa.use(createShopifyAuth({
   }
 }));
 
+// use graphQL middleware
 koa.use(graphQLProxy({version : ApiVersion.October19}));
 
+// run all requests through verification middleware
 router.get("*", verifyRequest(), async ctx => {
-  // next.js request handler not here!
+  // next.js request handler removed. No more SSR
   
   ctx.respond = false;
   ctx.res.statusCode = 200;

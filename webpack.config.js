@@ -4,12 +4,12 @@ const path = require("path");
 
 const webpackConfiguration = {
   entry : {
-    productFlow : path.join(__dirname, "productFlow/index.tsx")
+    productFlow : "./frontEnd/productFlow/index.tsx"
+    , adminArea : "./adminArea/AdminAreaFull.tsx"
   }
   , output : {
-    filename : "outputScripts/[name].output.js"
-    , path : path.resolve(__dirname, "")
-    , publicPath : '/'
+    filename : "[name].output.js"
+    , path : path.join(__dirname, "public")
   }
   , watch : true
   // , watchOptions : { aggregateTimeout : 300 }
@@ -17,7 +17,7 @@ const webpackConfiguration = {
   , mode : "development"
   , devServer : {
     port: 3000
-    , contentBase : [path.join(__dirname, 'productFlow')]
+    , contentBase : [path.join(__dirname, 'public')] // ['./public']
     , hot : true
     , historyApiFallback : true
   }
@@ -36,7 +36,7 @@ const webpackConfiguration = {
         , use : {
           loader: 'awesome-typescript-loader'
         }
-        , exclude : [/node_modules/, /outputScripts/, /\.dependabot/, /\.next/, /\.idea/, /lib/]
+        , exclude : [/node_modules/, /outputScripts/, /\.dependabot/, /\.next/, /\.idea/, /lib/, /pages/, /\.dependabot/]
       }, {
         enforce : 'pre'
           , test : /\.js$/

@@ -7,7 +7,7 @@
     "target": "es6",
     "sourceMap": true,
     "noEmitOnError": false,
-    "jsx": "preserve",
+    "jsx": "react",
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": false,
     "noImplicitReturns": true,
