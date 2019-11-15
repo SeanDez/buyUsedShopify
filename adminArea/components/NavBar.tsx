@@ -4,7 +4,7 @@ import {makeStyles} from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
-
+import Toolbar from "@material-ui/core/Toolbar";
 
 ////// Component Functions //////
 
@@ -41,54 +41,29 @@ export default props => {
  ////// Component State //////
 
  ////// Render //////
- return (
-  <div id="navContainer">
-    <h5 id="navTitle">Buy Back Trade Ins</h5>
-
-    <nav id="buttonContainer">
-      <button
-        onClick={() => setActiveView('rules')}
-      >Rules</button>
-      <button onClick={() => setActiveView('open')}>Open Orders</button>
-      <button onClick={() => setActiveView('closed')}>Closed</button>
-      <button onClick={() => setActiveView('settings')}>Settings</button>
-    </nav>
-  {/* language=SCSS */}
-    <style jsx>{`
-      #navContainer {
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-        transition: 0.3s;
-      }
+  return (
+    <div id="navContainer">
+      <h5 id="navTitle">Buy Back Trade Ins</h5>
       
-      #navContainer > * {
-        margin: 0;
-        padding: 1vh 1vw 10px 1vw;
-        background-color: #9ca6de;
-        border-radius: 1px;
-        
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-        transition: 0.3s;
-      }
       
-      #navContainer :hover, #navContainer > * :hover {
-        box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
-      }
+      {/*<nav id="buttonContainer">*/}
+      <AppBar>
+        <Toolbar>
+          <button
+            onClick={() => setActiveView('rules')}
+          >Rules
+          </button>
+          <button onClick={() => setActiveView('open')}>Open Orders</button>
+          <button onClick={() => setActiveView('closed')}>Closed</button>
+          <button onClick={() => setActiveView('settings')}>Settings</button>
+        </Toolbar>
+      </AppBar>
       
-      #navTitle {
-        font-size: 14px;
-        font-style: italic;
-        text-align: center;
-      }
+      {/*</nav>*/}
+      {/* language=SCSS */}
       
-      #buttonContainer {
-        display : grid;
-        grid-gap: 1rem;
-        grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
-      }
-      
-    `}</style>
-  </div>
- )
+    </div>
+  );
 }
 
 
