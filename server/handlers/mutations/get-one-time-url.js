@@ -1,6 +1,7 @@
 import "isomorphic-fetch";
 import { gql } from "apollo-boost";
 
+// language=graphql
 export function ONETIME_CREATE(url) {
   return gql`
     mutation {

@@ -68,7 +68,6 @@ koa.keys = [SHOPIFY_API_SECRET];
 
 
 // serve anything in public folder
-// path is bound to url /. So public/index.html is /index.html (or just /)
 koa.use(serve("public"));
 
 
@@ -82,6 +81,7 @@ koa.use(createShopifyAuth({
     const {shop, accessToken} = ctx.session;
     ctx.cookies.set("shopOrigin", shop, { httpOnly : false});
     
+    
     ctx.redirect("/");
   }
 }));
@@ -89,13 +89,61 @@ koa.use(createShopifyAuth({
 // use graphQL middleware
 koa.use(graphQLProxy({version : ApiVersion.October19}));
 
-// run all requests through verification middleware
+
+// check if the script tag is posted. Add if not there
+// this is a middleware
+// todo work in progress
+const getAllScriptTags = async ctx => {
+  try {
+    const response = await fetch('admin/api/2019-10/script_tags.json', {
+      method : "post"
+    });
+    const responseBody = await response.json();
+    console.log(responseBody, `=====responseBody get all script tags=====`);
+    
+    ctx.res.statusCode = 200;
+    ctx.respond("ctx respond triggered");
+  }
+  catch (e) {
+    console.log(e, `=====e=====`);
+    ctx.respond("error")
+  }
+};
+
+// send an access token to any request
+router.post("/unauth", async ctx => {
+  // see what access tokens are available
+  console.log(ctx.session.accessToken, `=====ctx.session.accessToken (general)=====`);
+  ctx.body = ctx.session.accessToken;
+  
+  return;
+  
+  // post to storefrontaccesstoken api
+  try {
+    const response = await fetch("https://seandezoysa.myshopify.com/admin/api/2019-10/storefront_access_tokens.json", {
+      method : "post"
+    });
+    const accessToken = await response.json();
+    console.log(accessToken, `=====accessToken=====`);
+    ctx.res.statusCode = 200;
+    ctx.body = accessToken;
+  }
+  catch (e) {
+    console.log(e, `=====error=====`);
+  }
+  
+});
+
+
+// run all remaining requests through verification middleware
 router.get("*", verifyRequest(), async ctx => {
-  // next.js request handler removed. No more SSR
+  
+  console.log(ctx.session.accessToken, `=====accessToken inside router.get(*...=====`);
   
   ctx.respond = false;
   ctx.res.statusCode = 200;
 });
+
 
 koa.use(router.allowedMethods());
 koa.use(router.routes());
