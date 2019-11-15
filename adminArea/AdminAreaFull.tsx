@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import '../shared/theme.scss';
 import ReactDOM from 'react-dom';
 // import { Heading, Page, Card, Button, Tabs } from "@shopify/polaris";
 import {makeStyles} from "@material-ui/core/styles";
