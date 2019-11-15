@@ -80,7 +80,7 @@ const StyledToolbar = styled(Toolbar)`
     margin: 0 !important;
     font-size: .8rem;
     padding: 0 5vw !important;
-    border: 1px solid rgba(0, 0, 0, .2) !important;
+    border: 1px solid rgba(255, 255, 255, .2) !important;
     border-radius: 4px !important;
   }
 `;
