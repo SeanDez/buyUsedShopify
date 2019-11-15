@@ -5,6 +5,9 @@ import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import MenuItem from "@material-ui/core/MenuItem";
+
+
 
 ////// Component Functions //////
 
@@ -48,15 +51,15 @@ export default props => {
       
       {/*<nav id="buttonContainer">*/}
       <AppBar>
-        <Toolbar>
-          <button
+        <StyledToolbar>
+          <MenuItem
             onClick={() => setActiveView('rules')}
           >Rules
-          </button>
-          <button onClick={() => setActiveView('open')}>Open Orders</button>
-          <button onClick={() => setActiveView('closed')}>Closed</button>
-          <button onClick={() => setActiveView('settings')}>Settings</button>
-        </Toolbar>
+          </MenuItem>
+          <MenuItem onClick={() => setActiveView('open')}>Open Orders</MenuItem>
+          <MenuItem onClick={() => setActiveView('closed')}>Closed</MenuItem>
+          <MenuItem onClick={() => setActiveView('settings')}>Settings</MenuItem>
+        </StyledToolbar>
       </AppBar>
       
       {/*</nav>*/}
@@ -68,4 +71,17 @@ export default props => {
 
 
 ////// Component Styles //////
+const StyledToolbar = styled(Toolbar)`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  
+  & > * {
+    margin: 0 !important;
+    font-size: .8rem;
+    padding: 0 5vw !important;
+    border: 1px solid rgba(0, 0, 0, .2) !important;
+    border-radius: 4px !important;
+  }
+`;
 
