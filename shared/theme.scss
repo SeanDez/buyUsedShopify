@@ -1,6 +1,102 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
-$body-color: red;
+
+
+////// Variables //////
+
+//$body-color: red;
+
+//html { height: 100vh; }
+
+
+////// Mixins & Functions //////
+
+@mixin dynamicFontSize ($minFontSize, $maxFontSize) {
+  font-size: calc(#{$minFontSize} + (#{$maxFontSize} - #{$minFontSize}) * ((100vw - 300px) / (1600 - 300)));
+}
+
+@mixin autoFitGrid ($gap, $minWidth, $maxWidth) {
+  display : grid;
+  grid-gap: #{$gap};
+  grid-template-columns: repeat(auto-fit, minmax(#{$minWidth}, #{$maxWidth}))
+}
+
+
+////// Global Styles //////
 
 body {
-  color: $body-color;
+  //color: $body-color;
+  // min-height: 100%;
+  
+  // 14px: min size at the smallest viewport width of 300px. 26px: max size at the largest viewport width of 1600px
+  
+  font-family: "Roboto", "Helvetica", sans-serif;
+  @include dynamicFontSize(14px, 26px);
+  background-color: transparent;
+  border: 2px dashed green;
+}
+
+
+
+p, h1, h2, h3, h4, h5, h6 {
+  //font-family: Roboto, Helvetica, sans-serif;
+  color: rgba(30, 30, 30, .9);
+}
+
+h3 {
+  @include dynamicFontSize(26px, 38px);;
+}
+
+h4 {
+  @include dynamicFontSize(18px, 28px);
+}
+
+h5 {
+  @include dynamicFontSize(20px, 32px);
+}
+
+button {
+  color : whitesmoke;
+  padding-top: 4px;
+  padding-bottom: 4px;
+
+  border: none;
+  border-radius: 2vw;
+  cursor: pointer;
+  background-color: #5c6ac4;
+}
+
+section {
+  margin: 2vh 2vw;
+  padding: 2vh 2vw;
+  background-color: white;
+
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 2px;
+
+  & > * {
+    padding: 1vh .5vw;
+  }
+}
+
+
+table * { text-align: center; }
+
+
+input[type=text], input[type=number] {
+  padding: 1vh 1vw;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+.inputRow {
+  @include autoFitGrid(1rem, 50px, 200px);
+  justify-items: center;
+  align-items: center;
+  border: 2px dashed red;
+}
+
+.formEmulationGrid {
+  @include autoFitGrid(1rem, 200px, 1fr);
 }

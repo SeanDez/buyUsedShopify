@@ -2,11 +2,10 @@ import React, {useState, useCallback} from 'react';
 import styled from "styled-components";
 import {makeStyles} from "@material-ui/core/styles";
 
-import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import MenuItem from "@material-ui/core/MenuItem";
-
+import Typography from "@material-ui/core/Typography";
 
 
 ////// Component Functions //////
@@ -46,12 +45,9 @@ export default props => {
  ////// Render //////
   return (
     <div id="navContainer">
-      <h5 id="navTitle">Buy Back Trade Ins</h5>
-      
-      
-      {/*<nav id="buttonContainer">*/}
       <AppBar>
         <StyledToolbar>
+          <Typography variant="body2">Buy Back Trade Ins</Typography>
           <MenuItem
             onClick={() => setActiveView('rules')}
           >Rules
@@ -62,8 +58,7 @@ export default props => {
         </StyledToolbar>
       </AppBar>
       
-      {/*</nav>*/}
-      {/* language=SCSS */}
+      <Toolbar />
       
     </div>
   );

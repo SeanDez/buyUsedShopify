@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import styled from "styled-components";
 
 import Typography from "@material-ui/core/Typography";
-
+import Button from "@material-ui/core/Button";
 
 ////// Component Functions //////
 
@@ -13,13 +13,12 @@ export default props => {
  const {} = props;
  
  ////// Component State //////
-  const [isExpanded, setIsExpanded] = useState<boolean>(true);
   const [useGlobalPercent, setUseGlobalPercent] = useState<boolean>(true);
  const [globalPercent, setGlobalPercent] = useState<string>("");
+ const [lowQuantityThreshold, setLowQuantityThreshold] = useState<string>("");
+ const [lowQuantityPercent, setLowQuantityPercent] = useState<string>("");
  
- const parentStyles = {
-   "*" : {color : 'orange'}
- };
+ 
  
  ////// Render //////
   return (
@@ -72,6 +71,7 @@ export default props => {
             type="number"
             value={globalPercent}
             name="globalPercent"
+            onChange={e => setGlobalPercent(e.target.value)}
           />
         </div>)}
       </section>
@@ -87,7 +87,11 @@ export default props => {
             exclusion (or leave blank to disable this rule)
             </Typography>
           </label>
-          <input type="number" />
+          <input
+            type="number"
+            value={lowQuantityThreshold}
+            onChange={e => setLowQuantityThreshold(e.target.value)}
+          />
         </div>
         
         <div className="inputRow">
@@ -127,7 +131,7 @@ export default props => {
             <input type="number" />
           </div>
           
-          <button>Add product rule</button>
+          <Button variant="contained">Add product rule</Button>
         </div>
       </section>
       
@@ -186,7 +190,7 @@ export default props => {
         <div className="inputRow">
           <label htmlFor="exlusionProductId">Product Id</label>
           <input type="text" name="productId" />
-          <button>Add excluded product</button>
+          <Button variant="contained">Add excluded product</Button>
         </div>
       </section>
       

@@ -1,9 +1,7 @@
 import React, {useState} from "react";
 import '../shared/theme.scss';
 import ReactDOM from 'react-dom';
-// import { Heading, Page, Card, Button, Tabs } from "@shopify/polaris";
 import {makeStyles} from "@material-ui/core/styles";
-// import "typeface-roboto";
 
 import NavBar from "./components/NavBar";
 import RulesContainer from "./components/rules/RulesContainer"
@@ -97,21 +95,17 @@ import RulesContainer from "./components/rules/RulesContainer"
 // );
 
 const AdminAreaFull = () => {
-  const jss = defineStyles();
   
   const [activeView, setActiveView] = useState<string>('rules');
   
   return (
     <div>
-      {/*<StyleJsx />*/}
       
       {/* MOBILE Nav Menu */}
       <NavBar
         activeView={activeView}
         setActiveView={setActiveView}
       />
-  
-      <button>new button to test updates</button>
   
       {/* state based views */}
       
@@ -127,11 +121,7 @@ const AdminAreaFull = () => {
 
 
 ////// Styling //////
-const defineStyles = makeStyles({
-  navSpacing : {
-    marginBottom: 60
-  }
-});
+
 
 
 ReactDOM.render(<AdminAreaFull />, document.getElementById("reactAdminDiv"));
